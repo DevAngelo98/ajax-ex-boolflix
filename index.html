@@ -13,7 +13,7 @@
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Film da cercare" aria-label="Recipient's username" aria-describedby="button-addon2">
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+        <button class="btn btn-primary" type="button" id="button-addon2">Cerca Film</button>
       </div>
     </div>
   </div>
@@ -24,10 +24,10 @@
 
   <script id="template" type="text/x-handlebars-template">
     <ol>
-      <li>{{titolo}}</li>
-      <li>{{titoloOriginale}}</li>
-      <li>{{lingua}}</li>
-      <li>{{voto}}</li>
+      <li><p><b>Titolo:</b></p>&nbsp"{{titolo}}"</li>
+      <li><p><b>Titolo originale:</b></p>&nbsp"{{titoloOriginale}}"</li>
+      <li><p><b>Lingua:</b></p>&nbsp"{{lingua}}"</li>
+      <li><p><b>Voto:</b></p>&nbsp"{{voto}}"</li>
     </ol>
   </script>
 
