@@ -11,7 +11,7 @@ $(document).ready(function(){
   //Funzione "ricerca" con la chiamata ajax da eseguire
   function ricerca (nome){
     $.ajax({
-      url: "https://api.themoviedb.org/3/search/movie?api_key=66aeb90ff00ebee2e50dd67451722ef8&language=it-IT&query="+ nome,
+      url: "https://api.themoviedb.org/3/search/movie?api_key=66aeb90ff00ebee2e50dd67451722ef8&query="+ nome,
       method: "GET",
       success: function(datoRicevuto){
         $(".form-control").val("");
@@ -23,8 +23,8 @@ $(document).ready(function(){
           var context = {
             titolo: element.title, 
             titoloOriginale: element.original_title, 
-            lingua: element.original_language, 
-            voto: conversioneVoto(element.vote_average)
+            lingua: bandiera(element.original_language), 
+            voto: conversioneVoto(element.vote_average),
           };
           var html = template(context);
           $(".lista").append(html);
@@ -39,5 +39,15 @@ $(document).ready(function(){
     return votoFinale;
   }
 
-  
+  function bandiera(lingua){
+    var linguaUpper = lingua.toUpperCase();
+    if (linguaUpper == "EN"){
+      linguaUpper = "GB";
+    } else if(linguaUpper=="CS"){
+      linguaUpper = "CZ";
+    } else if (linguaUpper=="JA"){
+      linguaUpper = "JP";
+    }
+    return linguaUpper;
+  }
 });
