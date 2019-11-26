@@ -11,3 +11,15 @@
 li{
   display: flex;
 }
+
+svg{
+  width: 25px;
+}
+
+.none{
+  display: none;
+}
+
+.block{
+  display: block;
+}
