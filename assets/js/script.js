@@ -14,16 +14,30 @@ $(document).ready(function(){
       url: "https://api.themoviedb.org/3/search/movie?api_key=66aeb90ff00ebee2e50dd67451722ef8&language=it-IT&query="+ nome,
       method: "GET",
       success: function(datoRicevuto){
+        $(".form-control").val("");
         var arrayRicevuto = datoRicevuto.results;
         var source = $("#template").html();
         var template = Handlebars.compile(source);
         arrayRicevuto.forEach(element => {
-          var context = {titolo: element.title, titoloOriginale: element.original_title, lingua: element.original_language, voto: element.vote_average};
+          
+          var context = {
+            titolo: element.title, 
+            titoloOriginale: element.original_title, 
+            lingua: element.original_language, 
+            voto: conversioneVoto(element.vote_average)
+          };
           var html = template(context);
           $(".lista").append(html);
         });
       }
     });  
   }
+
+  function conversioneVoto (voto){
+    var votoDivisoPerDue = voto/2;
+    var votoFinale = parseInt(votoDivisoPerDue);
+    return votoFinale;
+  }
+
   
 });
