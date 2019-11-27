@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+body{
+  background-color: black;
+  color: white;
+}
+
 .container{
   margin-top: 30px;
 }
@@ -30,16 +35,85 @@ svg{
   align-items: flex-start;
 }
 
-.positioncard > ul{
+.positioncard > *{
   margin-right: 30px;
   margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.positioncard > ul:first-child{
+.positioncard > *:first-child{
   margin-left: 0px;
 }
 
 .descrizione{
   flex-direction: column;
+  margin-top: 15px;
+}
+
+.info svg{
+  width: 40px;
+}
+
+.img{
+  width: 342px;
+  height: 192px;
+  position: relative;
+}
+
+.img:hover{
+  cursor: pointer;
+}
+
+.info{
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255,0.4);
+}
+
+.flex,
+.flexmy{
+  display: flex;
+}
+
+.info-film-serie{
+  justify-content: center;
+}
+
+.copiato{
+  margin-top: 30px;
+  max-width: 60%;
+  display: flex;
+}
+
+.copiato .info{
+  display: none;
+}
+
+.copiato h6{
+  font-size: 2rem;
+}
+
+.closedescrizione{
+  align-self: flex-end;
+}
+.closedescrizione:hover{
+  cursor: pointer;
+}
+.container.descr{
+  flex-direction: column;
+  margin-top: 0px;
+}
+
+.lingua img:hover{
+  cursor: pointer;
+}
+
+.lingua img{
+  max-width: 40px;
 }
