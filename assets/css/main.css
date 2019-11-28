@@ -13,6 +13,39 @@ body{
   margin-top: 30px;
 }
 
+.my_cont-nav{
+  padding: 0;
+  margin: 0;
+  margin-bottom: 40px;
+}
+.my_cont-nav .navbar{
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#logo{
+  width: 170px;
+}
+
+.my_nav{
+  margin-left: 25px;
+}
+
+.my_nav a{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.bg-dark {
+  background-color: #0f171e!important;
+}
+/*Slider*/
+.w-100{
+  max-width: 50%!important;
+  margin: auto;
+}
+
+
 li{
   display: flex;
 }
@@ -100,14 +133,18 @@ svg{
 }
 
 .closedescrizione{
-  align-self: flex-end;
+  position: absolute;
+  right: -30px;
+  top: -30px;
 }
+
 .closedescrizione:hover{
   cursor: pointer;
 }
 .container.descr{
   flex-direction: column;
   margin-top: 0px;
+  position: relative;
 }
 
 .lingua img:hover{
@@ -117,3 +154,20 @@ svg{
 .lingua img{
   max-width: 40px;
 }
+
+.copiato .null{
+  height: 0px;
+}
+
+.all h6.none{
+  display: none;
+}
+
+.all.copiato h6.none{
+  display: block;
+}
+
+.all.copiato h6.block{
+  display: none;
+}
+

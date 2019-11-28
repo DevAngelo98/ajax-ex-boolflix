@@ -4,8 +4,6 @@ $(document).ready(function(){
   $(".info-film-serie").on("mouseenter", ".flaghover", function(){
     $(this).addClass("none");
     $(this).parent().find(".flagnohover").removeClass("none");
-    console.log("OK");
-    
   });
 
   $(".info-film-serie").on("mouseleave", ".flagnohover", function(){
@@ -16,8 +14,8 @@ $(document).ready(function(){
   //Al click del bottone mi ritorna il valore dell'input e pulisco (se già presente) il contenuto di ".lista"
   //richiamo tramite la funzione "ricerca" la chiamata ajax alla quale passo come query il nome da ricercare
   $("#button-addon2").click(function(){
-    $(".lista .film > ul").remove();
-    $(".listaserie .serie > ul").remove();
+    $(".lista .film .all").remove();
+    $(".listaserie .serie .all").remove();
     var valore = $(".form-control").val();
     ricerca(valore);
   });
@@ -38,7 +36,8 @@ $(document).ready(function(){
           var votoFinale = conversioneVoto(element.vote_average);
           var context = {
             imgpassata: 'https://image.tmdb.org/t/p/w342/'+element.backdrop_path,
-            titolo: element.title, 
+            titolo: lunghezzaTitolo(element.title),
+            titoloCompleto: element.title,
             titoloOriginale: element.original_title, 
             lingua: bandiera(element.original_language), 
             voto: votoFinale,
@@ -61,18 +60,17 @@ $(document).ready(function(){
         var arraySerie = serie.results;
         var source = $("#template-serie-film").html();
         var template = Handlebars.compile(source);
-        console.log(arraySerie);
-        
         arraySerie.forEach(element => {
           var votoFinale = conversioneVoto(element.vote_average);
           var context = {
             imgpassata: 'https://image.tmdb.org/t/p/w342/'+element.backdrop_path,
-            titolo: element.name, 
+            titolo: lunghezzaTitolo(element.name),
+            titoloCompleto: element.name, 
             titoloOriginale: element.original_name, 
             lingua: bandiera(element.original_language), 
             voto: votoFinale,
             stars: stelle(votoFinale),
-            descrizione: element.overview
+            descrizione: controlloDescrizione(element.overview)
           };
           controlloImg(element.backdrop_path, context);
           var html = template(context);
@@ -82,9 +80,27 @@ $(document).ready(function(){
     });
   }
 
+  function controlloDescrizione(descrizione){
+    if(descrizione.length==0){
+      descrizione = "Descrizione non disponibile"
+    }
+    return descrizione;
+  }
+
+  function lunghezzaTitolo(titolo){
+    var len = titolo.length;
+    var titoloSostituto = titolo;
+    if(len>=35){
+      titoloSostituto = titolo.substr(0,30);
+      titoloSostituto+=".....";
+    }
+    return titoloSostituto;
+  }
+
   function controlloImg (val, context){
     if(val==null){
       context.imgnulla = "flexmy";
+      context.altezza = "null"
     }
   }
   
@@ -143,6 +159,7 @@ $(document).ready(function(){
     $(".info-film-serie .descrizione").removeClass("none");
     $(".container.lista").addClass("none");
     $(".container.listaserie").addClass("none");
+    $(".bd-example").addClass("none");
   });
 
   //Ripristino ricerca
@@ -151,5 +168,7 @@ $(document).ready(function(){
     $(".info-film-serie").addClass("none");
     $(".container.lista").removeClass("none");
     $(".container.listaserie").removeClass("none");
+    $(".bd-example").removeClass("none");
   });
+
 });
