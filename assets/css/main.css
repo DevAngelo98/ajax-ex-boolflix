@@ -29,6 +29,18 @@ body{
   width: 170px;
 }
 
+.div-logo{
+  display: flex;
+  align-items: center;
+}
+
+#home{
+  color: wheat;
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: 35px;
+}
+
 /*Slider*/
 .w-100{
   max-width: 50%!important;
@@ -39,10 +51,6 @@ body{
   bottom: 5px;
   margin-bottom: 0;
 }
-
-/* .all li{
-  justify-content: center;
-} */
 
 .center_title {
   justify-content: center;
@@ -65,6 +73,7 @@ svg{
 }
 
 .positioncard{
+  margin-top: 25px;
   display: flex;
   overflow: auto;
   align-items: flex-start;

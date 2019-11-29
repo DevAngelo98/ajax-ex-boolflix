@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+  ricerca("Breaking bad");
+
+  $("#home").click(function(){
+    ricercaUtente=false;
+    ricerca("Breaking bad");
+  });
+
   //Cambio stile bandiera all'hover
   $(".info-film-serie").on("mouseenter", ".flaghover", function(){
     $(this).addClass("none");
@@ -13,9 +20,9 @@ $(document).ready(function(){
 
   //Al click del bottone mi ritorna il valore dell'input e pulisco (se già presente) il contenuto di ".lista"
   //richiamo tramite la funzione "ricerca" la chiamata ajax alla quale passo come query il nome da ricercare
-  var ricercaVal;
+  var ricercaUtente = false;
   $("#button-addon2").click(function(){
-    ricercaVal=0;
+    ricercaUtente=true;
     var valore = $(".form-control").val();
     ricerca(valore);
   });
@@ -51,8 +58,6 @@ $(document).ready(function(){
     noNone(".container.listaserie");
     noNone(".bd-example");
   });
-
-  ricerca("breaking bad");
 
   //Funzione ricerca cast
   function cercaCast(id){
@@ -119,6 +124,7 @@ $(document).ready(function(){
       $(".listaserie .serie").append(html);
     }
   }
+
   //Ricerca della presenza di almeno un film e una serie per resettare rispettivamente i campi
   function resetCampi(array){
     array.forEach(element => {
@@ -131,8 +137,9 @@ $(document).ready(function(){
     });
   }
 
-  //Funzione "ricerca" con le chiamata ajax da eseguire
+  //Funzione "ricerca dell'utente
   function ricerca (nome){
+
     //Chiamata generale
     $.ajax({
       url: "https://api.themoviedb.org/3/search/multi?api_key=66aeb90ff00ebee2e50dd67451722ef8&language=it-IT&query="+ nome,
@@ -146,33 +153,36 @@ $(document).ready(function(){
         if(arrayRicevuto.length>0 ){
 
           resetCampi(arrayRicevuto);
-          ricercaVal++;
 
-          if(ricercaVal>=1){
+          if(ricercaUtente==true){
             $(".bd-example").addClass("none");
+          } else {
+            $(".bd-example").removeClass("none");
           }
-          
+
           arrayRicevuto.forEach(element => {
-            
-            var votoFinale = conversioneVoto(element.vote_average);
-            var context = {
-              id: element.id,
-              imgpassata: 'https://image.tmdb.org/t/p/w342/'+element.backdrop_path,
-              lingua: bandiera(element.original_language), 
-              voto: votoFinale,
-              stars: stelle(votoFinale),
-              descrizione: controlloDescrizione(element.overview)
-            };
-            if(element.media_type=="movie"){
-              context.titolo = lunghezzaTitolo(element.title);
-              context.titoloCompleto = element.title;
-              context.titoloOriginale= element.original_title;
-              controllo(element.id,element.backdrop_path,context,element.media_type,template);
-            } else {
-              context.titolo = lunghezzaTitolo(element.name);
-              context.titoloCompleto = element.name;
-              context.titoloOriginale = element.original_name;
-              controllo(element.id,element.backdrop_path,context,element.media_type,template);
+            console.log(element);
+            if(element.media_type=="movie" ||element.media_type=="tv"){
+              var votoFinale = conversioneVoto(element.vote_average);
+              var context = {
+                id: element.id,
+                imgpassata: 'https://image.tmdb.org/t/p/w342/'+element.backdrop_path,
+                lingua: bandiera(element.original_language), 
+                voto: votoFinale,
+                stars: stelle(votoFinale),
+                descrizione: controlloDescrizione(element.overview)
+              };
+              if(element.media_type=="movie"){
+                context.titolo = lunghezzaTitolo(element.title);
+                context.titoloCompleto = element.title;
+                context.titoloOriginale= element.original_title;
+                controllo(element.id,element.backdrop_path,context,element.media_type,template);
+              } else {
+                context.titolo = lunghezzaTitolo(element.name);
+                context.titoloCompleto = element.name;
+                context.titoloOriginale = element.original_name;
+                controllo(element.id,element.backdrop_path,context,element.media_type,template);
+              }
             }
           });
         }
