@@ -7,6 +7,7 @@
 body{
   background-color: black;
   color: white;
+  padding-bottom: 30px;
 }
 
 .container{
@@ -14,37 +15,38 @@ body{
 }
 
 .my_cont-nav{
-  padding: 0;
-  margin: 0;
-  margin-bottom: 40px;
-}
-.my_cont-nav .navbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #0f171e!important;
   padding-top: 15px;
   padding-bottom: 15px;
+  margin: 0;
+  margin-bottom: 40px;
 }
 
 #logo{
   width: 170px;
 }
 
-.my_nav{
-  margin-left: 25px;
-}
-
-.my_nav a{
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.bg-dark {
-  background-color: #0f171e!important;
-}
 /*Slider*/
 .w-100{
   max-width: 50%!important;
   margin: auto;
 }
 
+.carousel-indicators {
+  bottom: 5px;
+  margin-bottom: 0;
+}
+
+/* .all li{
+  justify-content: center;
+} */
+
+.center_title {
+  justify-content: center;
+}
 
 li{
   display: flex;
@@ -69,8 +71,7 @@ svg{
 }
 
 .positioncard > *{
-  margin-right: 30px;
-  margin-left: 30px;
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,6 +100,10 @@ svg{
   cursor: pointer;
 }
 
+.img img{
+  border-radius: 20px;
+}
+
 .info{
   position: absolute;
   width: 100%;
@@ -107,6 +112,7 @@ svg{
   align-items: center;
   justify-content: center;
   background-color: rgba(255,255,255,0.4);
+  border-radius: 20px;
 }
 
 .flex,
@@ -119,9 +125,17 @@ svg{
 }
 
 .copiato{
-  margin-top: 30px;
   max-width: 60%;
   display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid grey;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.copiato:hover{
+  background-color: rgba(128, 128, 128, .2);
 }
 
 .copiato .info{
@@ -144,7 +158,7 @@ svg{
 .container.descr{
   flex-direction: column;
   margin-top: 0px;
-  position: relative;
+  padding: 0;
 }
 
 .lingua img:hover{
@@ -159,12 +173,17 @@ svg{
   height: 0px;
 }
 
+.copiato .img{
+  margin-top: 15px;
+}
+
 .all h6.none{
   display: none;
 }
 
 .all.copiato h6.none{
   display: block;
+  align-self: center;
 }
 
 .all.copiato h6.block{
