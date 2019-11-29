@@ -1,11 +1,11 @@
 $(document).ready(function(){
 
-  ricerca("Breaking bad");
-
   $("#home").click(function(){
     ricercaUtente=false;
     ricerca("Breaking bad");
   });
+
+  $("#home").click();
 
   //Cambio stile bandiera all'hover
   $(".info-film-serie").on("mouseenter", ".flaghover", function(){
@@ -20,10 +20,13 @@ $(document).ready(function(){
 
   //Al click del bottone mi ritorna il valore dell'input e pulisco (se già presente) il contenuto di ".lista"
   //richiamo tramite la funzione "ricerca" la chiamata ajax alla quale passo come query il nome da ricercare
+  // var ricercaUtente = false;
   var ricercaUtente = false;
   $("#button-addon2").click(function(){
     ricercaUtente=true;
     var valore = $(".form-control").val();
+    console.log(valore);
+    
     ricerca(valore);
   });
 
@@ -76,13 +79,16 @@ $(document).ready(function(){
             cont++;
           }
         });
+      },
+      error: function(error){
+        console.log(error);
       }
     });
   }
 
   //Cerca generi
   function cercaGeneri(id){
-    var url = id+"?api_key=66aeb90ff00ebee2e50dd67451722ef8";
+    var url = id+"?api_key=66aeb90ff00ebee2e50dd67451722ef8&language=it-IT";
     $.ajax({
       url: "https://api.themoviedb.org/3/movie/"+url,
       method: "GET",
@@ -107,6 +113,9 @@ $(document).ready(function(){
             $(elem).find(".generi").html(nomi);
           }
         });
+      },
+      error: function(error){
+        console.log(error);
       }
     });
   }
@@ -123,6 +132,7 @@ $(document).ready(function(){
       var html = template(context);
       $(".listaserie .serie").append(html);
     }
+
   }
 
   //Ricerca della presenza di almeno un film e una serie per resettare rispettivamente i campi
@@ -149,11 +159,13 @@ $(document).ready(function(){
         var arrayRicevuto = datoRicevuto.results;
         var source = $("#template-serie-film").html();
         var template = Handlebars.compile(source);
+        console.log(arrayRicevuto);
         
         if(arrayRicevuto.length>0 ){
 
           resetCampi(arrayRicevuto);
-
+          console.log(ricercaUtente);
+          
           if(ricercaUtente==true){
             $(".bd-example").addClass("none");
           } else {
@@ -161,7 +173,6 @@ $(document).ready(function(){
           }
 
           arrayRicevuto.forEach(element => {
-            console.log(element);
             if(element.media_type=="movie" ||element.media_type=="tv"){
               var votoFinale = conversioneVoto(element.vote_average);
               var context = {
@@ -186,13 +197,16 @@ $(document).ready(function(){
             }
           });
         }
+      },
+      error: function(error){
+        console.log(error);
       }
     });  
   }
 
   function controlloDescrizione(descrizione){
     if(descrizione.length==0){
-      descrizione = "Descrizione non disponibile"
+      descrizione = "Descrizione non disponibile";
     }
     return descrizione;
   }
@@ -210,7 +224,7 @@ $(document).ready(function(){
   function controlloImg (val, context){
     if(val==null){
       context.imgnulla = "flexmy";
-      context.altezza = "null"
+      context.altezza = "null";
     }
   }
   
